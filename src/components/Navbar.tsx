@@ -12,8 +12,8 @@ export default function Navbar() {
       </div>
       <div className="flex justify-center items-center p-4 gap-4 h-16">
         <SignedIn>
-          <Link href="/cases">
-            <h2 className="text-2xl hover:text-amber-200">View My Cases</h2>
+          <Link href="/tasks">
+            <h2 className="text-2xl hover:text-amber-200">View My Tasks</h2>
           </Link>
         </SignedIn>
       </div>
