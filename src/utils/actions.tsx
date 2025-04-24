@@ -55,7 +55,7 @@ export async function GetTasks() {
   const tasks = await response.rows;
   console.log("retrieved tasks are: ", tasks);
   if (!tasks[0]) {
-    return null;
+    return userId;
   } else {
     // console.log("task due: ", tasks[0].due.toString());
     return tasks;
