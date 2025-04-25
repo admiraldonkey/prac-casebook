@@ -5,8 +5,8 @@ export default async function IndividualTaskPage({
   params,
   searchParams,
 }: {
-  params: { id: string };
-  searchParams: { edit: string | undefined };
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ edit: string | undefined }>;
 }) {
   const taskId = (await params).id;
   // console.log("taskId from inditaskpage is: ", taskId);
