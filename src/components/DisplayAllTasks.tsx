@@ -1,23 +1,12 @@
 import { GetTasks } from "@/utils/actions";
 import CreateTaskForm from "./CreateTaskForm";
 import Link from "next/link";
+import Button from "./Button";
+import Task from "./Task";
 
 type Props = {
   create: boolean;
 };
-// Component that displays all tasks associated with the logged in user
-function getTaskStatus(status: string) {
-  switch (status) {
-    case "pending":
-      return "Pending";
-    case "progress":
-      return "In Progress";
-    case "complete":
-      return "Completed";
-    default:
-      return "Invalid value";
-  }
-}
 
 // Component that displays all tasks associated with the logged in user
 export default async function DisplayAllTasks({ create }: Props) {
@@ -33,30 +22,23 @@ export default async function DisplayAllTasks({ create }: Props) {
 
   return (
     <>
-      {create ? (
+      {/* {create ? (
         <CreateTaskForm userId={userId} />
       ) : (
-        <Link href="tasks?create=true">Create New Task</Link>
-      )}
-      <h2>My Tasks</h2>
+        <Link href="tasks?create=true">
+          <Button typeName="normal">Create New Task</Button>
+        </Link>
+      )} */}
+      <div className="flex justify-between">
+        <h2 className="pl-4 text-3xl font-semibold">My Tasks</h2>
+        <Link href="tasks/create" className="justify-right">
+          <Button typeName="normal">Create New Task</Button>
+        </Link>
+      </div>
       {typeof tasks != "number" ? (
         <div>
           {tasks.map((task: Task) => {
-            return (
-              <div key={task.id}>
-                <h3>{task.title}</h3>
-                <p>{task.description}</p>
-                <p>
-                  <span>Status:</span> {getTaskStatus(task.status)}
-                </p>
-                <p>
-                  <span>Due:</span> {task.due.toUTCString()}
-                </p>
-                <Link href={`/tasks/${task.id}`}>
-                  <button className="hover:cursor-pointer">View/Update</button>
-                </Link>
-              </div>
-            );
+            return <Task key={task.id} task={task} />;
           })}
         </div>
       ) : (
