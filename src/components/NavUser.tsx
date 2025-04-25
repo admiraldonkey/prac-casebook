@@ -14,10 +14,16 @@ export default function NavUser() {
       <SignedOut>
         {/* <Link href="/sign-in"> */}
         {/* <SignInButton /> */}
-        <Link href="/sign-in" className="hover:text-amber-200">
+        <Link
+          href="/sign-in"
+          className="hover:text-amber-200 hover:cursor-pointer"
+        >
           Sign In
         </Link>
-        <Link href="/sign-up" className="hover:text-amber-200">
+        <Link
+          href="/sign-up"
+          className="hover:text-amber-200 hover:cursor-pointer"
+        >
           Sign Up
         </Link>
         {/* <SignUpButton /> */}
