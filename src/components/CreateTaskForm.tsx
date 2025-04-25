@@ -49,8 +49,11 @@ export default function CreateTaskForm({
   task?: Task;
 }) {
   return (
-    <div>
-      <Form.Root action={task ? handleUpdateTask : handleAddTask}>
+    <div className="flex flex-col">
+      <Form.Root
+        action={task ? handleUpdateTask : handleAddTask}
+        className="border rounded-xl"
+      >
         <Form.Field name="title">
           <Form.Label>Title</Form.Label>
           <Form.Control asChild>

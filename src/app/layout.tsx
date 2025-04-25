@@ -16,11 +16,13 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className="h-screen w-screen flex flex-col overflow-x-hidden">
-          <header className="flex justify-between">
+        <body className="h-screen w-screen flex flex-col items-center overflow-x-hidden bg-white">
+          <header className="bg-govblack text-white w-full flex justify-center">
             <Navbar />
           </header>
-          {children}
+          <div className="h-full w-5/6 border-t-16 border-govblue pt-6 items-center">
+            {children}
+          </div>
         </body>
       </html>
     </ClerkProvider>
