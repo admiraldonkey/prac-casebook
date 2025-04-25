@@ -1,11 +1,15 @@
 import DisplayAllTasks from "@/components/DisplayAllTasks";
 
-export default function TasksPage() {
+export default async function TasksPage({
+  searchParams,
+}: {
+  searchParams: { create: string | undefined };
+}) {
+  const create = (await searchParams).create === "true";
   return (
     <>
       <h2>This is the task page</h2>
-      <DisplayAllTasks />
-      {/* Add a link to form for creating new task */}
+      <DisplayAllTasks create={create} />
     </>
   );
 }

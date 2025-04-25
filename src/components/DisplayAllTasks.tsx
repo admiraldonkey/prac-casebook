@@ -1,22 +1,44 @@
 import { GetTasks } from "@/utils/actions";
 import CreateTaskForm from "./CreateTaskForm";
-// Component that displays all tasks associated with the logged in user
-type Task = {
-  id: number;
-  title: string;
-  description?: string;
-  status: "pending" | "progress" | "complete";
-  due: Date;
-  user_id: number;
+import Link from "next/link";
+
+type Props = {
+  create: boolean;
 };
-export default async function DisplayAllTasks() {
+// Component that displays all tasks associated with the logged in user
+function getTaskStatus(status: string) {
+  switch (status) {
+    case "pending":
+      return "Pending";
+    case "progress":
+      return "In Progress";
+    case "complete":
+      return "Completed";
+    default:
+      return "Invalid value";
+  }
+}
+
+// Component that displays all tasks associated with the logged in user
+export default async function DisplayAllTasks({ create }: Props) {
   const tasks: Task[] | number = await GetTasks();
   const userId: number = typeof tasks != "number" ? tasks[0].user_id : tasks;
   console.log("userId being returned by tasks is: ", userId);
+  console.log(
+    "value of create param is: ",
+    create,
+    "and the type is: ",
+    typeof create
+  );
 
   return (
     <>
-      <h2>Tasks go here</h2>
+      {create ? (
+        <CreateTaskForm userId={userId} />
+      ) : (
+        <Link href="tasks?create=true">Create New Task</Link>
+      )}
+      <h2>My Tasks</h2>
       {typeof tasks != "number" ? (
         <div>
           {tasks.map((task: Task) => {
@@ -25,20 +47,21 @@ export default async function DisplayAllTasks() {
                 <h3>{task.title}</h3>
                 <p>{task.description}</p>
                 <p>
-                  <span>Status:</span> {task.status}
+                  <span>Status:</span> {getTaskStatus(task.status)}
                 </p>
                 <p>
-                  <span>Due:</span> {task.due.toDateString()}
+                  <span>Due:</span> {task.due.toUTCString()}
                 </p>
-                {/* Add link to view/edit task */}
+                <Link href={`/tasks/${task.id}`}>
+                  <button className="hover:cursor-pointer">View/Update</button>
+                </Link>
               </div>
             );
           })}
         </div>
       ) : (
-        "No tasks yet I'm afraid! Please add a task via the link below."
+        "No tasks yet I'm afraid! Please add a task via the link above."
       )}
-      <CreateTaskForm userId={userId} />
     </>
   );
 }

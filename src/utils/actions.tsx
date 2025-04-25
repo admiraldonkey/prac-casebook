@@ -1,6 +1,8 @@
 "use server";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "./db";
+import { ParamValue } from "next/dist/server/request/params";
+import { redirect } from "next/navigation";
 
 type User = {
   id?: string;
@@ -60,6 +62,32 @@ export async function GetTasks() {
     // console.log("task due: ", tasks[0].due.toString());
     return tasks;
   }
+}
+
+export async function GetTask(taskId: number) {
+  console.log("taskId received by GetTask is: ", taskId);
+  console.log("And the type is: ", typeof taskId);
+  const response = await db.query(
+    `SELECT *
+    FROM tasks
+    WHERE id = $1`,
+    [taskId]
+  );
+  const task = await response.rows;
+  console.log(task[0]);
+  if (!task[0]) {
+    return null;
+  } else {
+    return task[0];
+  }
+}
+
+// export async function DeleteTask(task: Task) {
+export async function DeleteTask(taskId: number) {
+  // console.log("Deleting task: ", task.title);
+  await db.query(`DELETE FROM tasks WHERE id = $1`, [taskId]);
+  console.log("Task deleted");
+  redirect("/tasks");
 }
 
 export async function AddNewUser(user: User) {
