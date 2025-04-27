@@ -7,10 +7,10 @@ export default async function Home() {
 
   return (
     <div className="h-full flex flex-col justify-center items-center">
-      <h1 className="text-4xl font-bold">Welcome to Casebook</h1>
+      <h1 className="text-6xl font-bold">Welcome to Casebook</h1>
       {isLoggedIn ? (
         <>
-          <p className="text-2xl font-semibold pt-4 pb-10">
+          <p className="text-3xl font-semibold pt-6 pb-10">
             Signed in as {isLoggedIn.email}
           </p>
           <Link href="/tasks">

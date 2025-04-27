@@ -22,25 +22,29 @@ export default async function DisplayAllTasks({ create }: Props) {
 
   return (
     <>
-      {/* {create ? (
-        <CreateTaskForm userId={userId} />
-      ) : (
-        <Link href="tasks?create=true">
-          <Button typeName="normal">Create New Task</Button>
-        </Link>
-      )} */}
       <div className="flex justify-between">
-        <h2 className="pl-4 text-3xl font-semibold">My Tasks</h2>
-        <Link href="tasks/create" className="justify-right">
+        <h2 className="text-5xl font-semibold">My Tasks</h2>
+        <Link href="/createtask" className="justify-right">
           <Button typeName="normal">Create New Task</Button>
         </Link>
       </div>
       {typeof tasks != "number" ? (
-        <div>
-          {tasks.map((task: Task) => {
-            return <Task key={task.id} task={task} />;
-          })}
-        </div>
+        <table className="table-fixed w-full mt-12">
+          <thead>
+            <tr className="text-2xl text-left align-text-top tracking-wider">
+              <th className="w-64">Title</th>
+              <th>Description</th>
+              <th className="w-32">Status</th>
+              <th className="w-64">Due</th>
+              <th className="w-24"></th>
+            </tr>
+          </thead>
+          <tbody className="text-left align-text-top">
+            {tasks.map((task: Task) => {
+              return <Task key={task.id} task={task} />;
+            })}
+          </tbody>
+        </table>
       ) : (
         "No tasks yet I'm afraid! Please add a task via the link above."
       )}

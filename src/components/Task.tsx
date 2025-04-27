@@ -8,11 +8,11 @@ interface Props {
 function getTaskStatus(status: string) {
   switch (status) {
     case "pending":
-      return <span className="text-brightred font-semibold">Pending</span>;
+      return "Pending";
     case "progress":
-      return <span className="text-lighthover font-semibold">In Progress</span>;
+      return "In Progress";
     case "complete":
-      return <span className="text-brightgreen font-semibold">Completed</span>;
+      return "Completed";
     default:
       return "Invalid value";
   }
@@ -22,23 +22,19 @@ export default function Task({ task }: Props) {
   const { id, title, description, status, due } = task;
   const statusName = getTaskStatus(status);
   return (
-    <div className="border-1 rounded-xl p-4 my-4 bg-white">
-      <div className="flex justify-between">
-        <h2 className="text-2xl font-semibold">{title}</h2>
+    <tr className="border-b-1 p-4 my-10 bg-white text-lg">
+      <td className="py-4 font-semibold">{title}</td>
+      <td className="py-4">{description}</td>
+      <td className="py-4 font-semibold">{statusName}</td>
+      <td className="py-4">{due.toUTCString()}</td>
+      <td className="text-right py-4">
         <Link
           href={`/tasks/${id}`}
           className="font-bold text-2xl mr-2 hover:underline hover:underline-offset-4 hover:decoration-2"
         >
           Edit
         </Link>
-      </div>
-      <p className="text-lg p-2 pb-4">{description}</p>
-      <div className="flex justify-between">
-        <p className="bg-govbluehover text-white px-2 pb-1 rounded-md">
-          Status: {statusName}
-        </p>
-        <p>Due By: {due.toUTCString()}</p>
-      </div>
-    </div>
+      </td>
+    </tr>
   );
 }
