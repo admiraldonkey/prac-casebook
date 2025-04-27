@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-darkred: #780000;
+  /* --color-darkred: #780000; */
+  --color-darkred: #d2222d;
   --color-brightred: #f00223;
   --color-beige: #fdf0d5;
   --color-darkblue: #003049;
@@ -13,6 +14,8 @@
   --color-govblue: #1d70b8;
   --color-govbluehover: #003078;
   --color-govgreen: #005a30;
+  --color-govbluebutton: #1d609d;
+  --color-govbuttonhover: #00b1eb;
 }
 
 /* :root {
@@ -41,8 +44,6 @@ body {
 
 /* TODO */
 /* 
-- Figure out best way to render the form (render on tasks page or on a dedicated page?) ideally same render location for both creating a new task or updating an existing task.
-- Style the form.
 - Refactor the individial task page and update the delete button.
 - Validation
 - Error handling

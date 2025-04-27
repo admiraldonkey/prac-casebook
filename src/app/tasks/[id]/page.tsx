@@ -1,22 +1,24 @@
-import DisplayTask from "@/components/DisplayTask";
+import CreateTaskForm from "@/components/CreateTaskForm";
+import DeleteTaskButton from "@/components/DeleteTaskButton";
 import { GetTask } from "@/utils/actions";
 
 export default async function IndividualTaskPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ edit: string | undefined }>;
 }) {
   const taskId = (await params).id;
-  // console.log("taskId from inditaskpage is: ", taskId);
-  const editTask = (await searchParams).edit === "true";
-  console.log("search param variable type is: ", editTask);
   const task: Task = await GetTask(parseInt(taskId));
 
   return (
-    <>
-      <DisplayTask {...task} editTask={editTask} />
-    </>
+    <div className="flex flex-col justify-center items-center">
+      <div className="flex justify-between w-[800px] pb-8">
+        <h2 className="font-semibold text-5xl text-center">Update Task</h2>
+        <div>
+          <DeleteTaskButton taskId={task.id}></DeleteTaskButton>
+        </div>
+      </div>
+      <CreateTaskForm task={task} />
+    </div>
   );
 }

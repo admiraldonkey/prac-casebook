@@ -1,24 +1,30 @@
 "use client";
 
 import { DeleteTask } from "@/utils/actions";
+import Button from "./Button";
+import { redirect } from "next/navigation";
 
 type Props = {
   taskId: number;
 };
 
 function handleDeleteTask(taskId: number) {
-  DeleteTask(taskId);
+  const confirmed = confirm("Are you sure you wish to delete this task?");
+  if (confirmed) {
+    DeleteTask(taskId);
+    redirect(`/tasks`);
+  }
 }
 
 export default function DeleteTaskButton({ taskId }: Props) {
   return (
-    <button
-      className="hover:cursor-pointer"
+    <Button
+      typeName="delete"
       onClick={() => {
         handleDeleteTask(taskId);
       }}
     >
       Delete Task
-    </button>
+    </Button>
   );
 }

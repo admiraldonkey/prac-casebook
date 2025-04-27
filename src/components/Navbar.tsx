@@ -7,7 +7,7 @@ export default function Navbar() {
     <div className="flex justify-between w-5/6">
       <div className="flex justify-start items-center py-4 gap-4 h-16">
         <Link href="/">
-          <h2 className="text-4xl font-semibold font-mono tracking-wide hover:underline hover:underline-offset-6 hover:decoration-2">
+          <h2 className="text-4xl font-semibold font-mono tracking-widest hover:underline hover:underline-offset-6 hover:decoration-2">
             CASEBOOK
           </h2>
         </Link>
