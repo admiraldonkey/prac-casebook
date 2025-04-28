@@ -5,6 +5,7 @@ import { db } from "@/utils/db";
 import { redirect } from "next/navigation";
 import Button from "./Button";
 
+// Server action that handles the form submission and adds the task to the database.
 async function handleAddTask(formData: FormData) {
   "use server";
   const taskObj = Object.fromEntries(formData.entries());
@@ -17,10 +18,12 @@ async function handleAddTask(formData: FormData) {
     ($1, $2, $3, $4, $5)`,
     [title, description, status, due, id]
   );
+  // Returns user to the main tasks page
   revalidatePath("/tasks");
   redirect(`/tasks`);
 }
 
+// Server action that handles the form submission to update an existing task in the database.
 async function handleUpdateTask(formData: FormData) {
   "use server";
   const taskObj = Object.fromEntries(formData.entries());
@@ -31,6 +34,7 @@ async function handleUpdateTask(formData: FormData) {
     SET title = $1, description = $2, status = $3, due = $4 WHERE id = $5`,
     [title, description, status, due, id]
   );
+  // Returns user to the main tasks page
   revalidatePath(`/tasks/${id}`);
   redirect(`/tasks`);
 }
@@ -42,7 +46,8 @@ function TrimDate(date: Date) {
   return str;
 }
 
-// Component that renders the form for a logged in user to create a new task
+// Component that renders the form for a logged in user to create a new task.
+// Uses a RadixUI form primitive for inbuilt accessibility and validation control.
 export default function CreateTaskForm({
   userId,
   task,
@@ -53,6 +58,7 @@ export default function CreateTaskForm({
   return (
     <div className="flex flex-col items-center">
       <Form.Root
+        // Conditionally set the form action depending on whether a task was passed as a prop (and therefore either creating a new task or updating an existing task)
         action={task ? handleUpdateTask : handleAddTask}
         className="w-[800px]"
       >
@@ -61,11 +67,11 @@ export default function CreateTaskForm({
             <Form.Label className="text-3xl font-semibold leading-tight pb-2">
               Title
             </Form.Label>
-            <Form.Message match="valueMissing" className="px-4 text-brightred">
-              * Please enter a task title
+            <Form.Message match="valueMissing" className="px-4 text-darkred">
+              Please enter a task title
             </Form.Message>
-            <Form.Message match="tooShort" className="px-4 text-brightred">
-              * Minimum of 3 characters
+            <Form.Message match="tooShort" className="px-4 text-darkred">
+              Minimum of 3 characters
             </Form.Message>
           </div>
           <Form.Control asChild>
@@ -94,7 +100,7 @@ export default function CreateTaskForm({
             <Form.Label className="text-3xl font-semibold leading-tight pb-2">
               Status
             </Form.Label>
-            <Form.Message match="valueMissing" className="px-4 text-brightred">
+            <Form.Message match="valueMissing" className="px-4 text-darkred">
               Please select current task status
             </Form.Message>
           </div>
@@ -116,13 +122,13 @@ export default function CreateTaskForm({
             <Form.Label className="text-3xl font-semibold leading-tight pb-2">
               Due
             </Form.Label>
-            <Form.Message match="valueMissing" className="px-4 text-brightred">
+            <Form.Message match="valueMissing" className="px-4 text-darkred">
               Please select a due date
             </Form.Message>
-            <Form.Message match="typeMismatch" className="px-4 text-brightred">
+            <Form.Message match="typeMismatch" className="px-4 text-darkred">
               Invalid input
             </Form.Message>
-            <Form.Message match="rangeOverflow" className="px-4 text-brightred">
+            <Form.Message match="rangeOverflow" className="px-4 text-darkred">
               Please select an earlier date
             </Form.Message>
           </div>
@@ -142,6 +148,7 @@ export default function CreateTaskForm({
           </Form.Control>
         </Form.Field>
         <Form.Submit asChild className="mt-6">
+          {/* Button text conditionally changes depending on if a task was passed as a prop to reflect the resulting form action upon submit  */}
           <Button typeName="submit">{task ? "Update" : "Create"} Task</Button>
         </Form.Submit>
       </Form.Root>

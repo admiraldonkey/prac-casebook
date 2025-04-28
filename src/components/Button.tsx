@@ -4,8 +4,11 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   typeName: "normal" | "submit" | "delete";
   children: React.ReactNode;
 }
+
+// Reusable button compponent which accepts a prop to adjust its styling as desired
 export default function Button(props: ButtonProps) {
   const { typeName, children, ...rest } = props;
+  // Alternative TailwindCSS styling classes
   const types = {
     normal:
       "bg-govgreen text-white hover:bg-govbluehover hover:drop-shadow-govblue",
