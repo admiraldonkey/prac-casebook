@@ -1,12 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  /* --color-darkred: #780000; */
   --color-darkred: #d2222d;
   --color-brightred: #f00223;
   --color-beige: #fdf0d5;
   --color-darkblue: #003049;
-  /* --color-lightblue: #669bbc; */
   --color-lightblue: #79bbe8;
   --color-lighthover: #ffb52a;
   --color-brightgreen: #00c12d;
@@ -20,10 +18,6 @@
 
 /* TODO */
 /* 
-- Validation
-- Error handling
-- Unit testing
-- Add back button/link to form
 - Option to sort tasks (i.e via last updated, due date, status, etc)
 - Documentation including API routes
    */

@@ -9,13 +9,13 @@ export default function NavUser() {
       <SignedOut>
         <Link
           href="/sign-in"
-          className="hover:text-amber-200 hover:cursor-pointer"
+          className="hover:underline hover:underline-offset-6 hover:decoration-1 hover:cursor-pointer"
         >
           Sign In
         </Link>
         <Link
           href="/sign-up"
-          className="hover:text-amber-200 hover:cursor-pointer"
+          className="hover:underline hover:underline-offset-6 hover:decoration-1 hover:cursor-pointer"
         >
           Sign Up
         </Link>
