@@ -6,8 +6,6 @@ import Task from "./Task/Task";
 // Component that displays all tasks associated with the logged in user
 export default async function DisplayAllTasks() {
   const tasks: Task[] | number = await GetTasks();
-  const userId: number = typeof tasks != "number" ? tasks[0].user_id : tasks;
-  console.log("userId being returned by tasks is: ", userId);
 
   return (
     <>
@@ -19,25 +17,37 @@ export default async function DisplayAllTasks() {
       </div>
       {/* Checks if tasks exist in 'tasks' variable, if so renders a table for displaying them on the page */}
       {typeof tasks != "number" ? (
-        <table className="table-fixed w-full mt-12">
-          <thead>
-            <tr className="text-2xl text-left align-text-top tracking-wider">
-              <th className="w-64">Title</th>
-              <th>Description</th>
-              <th className="w-32">Status</th>
-              <th className="w-64">Due</th>
-              <th className="w-24"></th>
-            </tr>
-          </thead>
-          <tbody className="text-left align-text-top">
-            {/* Maps through each task in the array and passes its data to the rendered Task component, adding a new row to the table */}
-            {tasks.map((task: Task) => {
-              return <Task key={task.id} task={task} />;
-            })}
-          </tbody>
-        </table>
+        <div className="overflow-x-auto">
+          <table className="w-full mt-12 overflow-hidden">
+            <thead>
+              <tr className="text-xl lg:text-2xl text-left align-text-top tracking-wider">
+                <th className="w-42 lg:w-56" tabIndex={0}>
+                  Title
+                </th>
+                <th className="w-auto" tabIndex={0}>
+                  Description
+                </th>
+                <th className="w-28" tabIndex={0}>
+                  Status
+                </th>
+                <th className="md:w-56" tabIndex={0}>
+                  Due
+                </th>
+                <th className="md:w-16"></th>
+              </tr>
+            </thead>
+            <tbody className="text-left align-text-top divide-y">
+              {/* Maps through each task in the array and passes its data to the rendered Task component, adding a new row to the table */}
+              {tasks.map((task: Task) => {
+                return <Task key={task.id} task={task} />;
+              })}
+            </tbody>
+          </table>
+        </div>
       ) : (
-        "No current tasks. Please add a task via the button above."
+        <p className="text-2xl mt-12">
+          No current tasks. Please add a task via the button above.
+        </p>
       )}
     </>
   );

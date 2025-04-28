@@ -1,7 +1,7 @@
 import CreateTaskForm from "@/components/CreateTaskForm";
 import DeleteTaskButton from "@/components/DeleteTaskButton";
 import { GetTask } from "@/utils/actions";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 // Dynamic route that receives a task ID parameter and uses the associated task to set the default values of the rendered task creation form for easy editing.
 export default async function IndividualTaskPage({
@@ -13,9 +13,9 @@ export default async function IndividualTaskPage({
   const taskId = (await params).id;
   // Retrieve associated task data from database
   const task: Task = await GetTask(parseInt(taskId));
-  // Redirects if task not found
+  // Render not-found page if task not found
   if (!task) {
-    redirect(`/tasks`);
+    notFound();
   }
 
   return (
