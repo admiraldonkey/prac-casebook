@@ -1,14 +1,10 @@
 import DisplayAllTasks from "@/components/DisplayAllTasks";
 
-export default async function TasksPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ create: string | undefined }>;
-}) {
-  const create = (await searchParams).create === "true";
+// Main task page that displays all tasks associated with logged in user
+export default async function TasksPage() {
   return (
     <>
-      <DisplayAllTasks create={create} />
+      <DisplayAllTasks />
     </>
   );
 }

@@ -1,19 +1,12 @@
 "use client";
-import {
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 
+// Renders the sign in and sign out links if user is logged out, otherwise renders their profile button
 export default function NavUser() {
   return (
     <>
       <SignedOut>
-        {/* <Link href="/sign-in"> */}
-        {/* <SignInButton /> */}
         <Link
           href="/sign-in"
           className="hover:text-amber-200 hover:cursor-pointer"
@@ -26,8 +19,6 @@ export default function NavUser() {
         >
           Sign Up
         </Link>
-        {/* <SignUpButton /> */}
-        {/* </Link> */}
       </SignedOut>
       <SignedIn>
         <UserButton />

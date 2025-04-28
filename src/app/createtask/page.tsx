@@ -1,6 +1,7 @@
 import CreateTaskForm from "@/components/CreateTaskForm";
 import { GetUserFromDB } from "@/utils/actions";
 
+// Route for creating a new task. Renders the task creation form.
 export default async function CreateTaskPage() {
   const userId = await GetUserFromDB();
   return (
